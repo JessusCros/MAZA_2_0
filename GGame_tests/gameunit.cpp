@@ -8,6 +8,8 @@ GameUnit::GameUnit(QWidget *parent) : QWidget(parent) {
     loadTexture();
 }
 
+
+// Обработчик клавиатуры.
 void GameUnit::keyPressEvent(QKeyEvent *event) {\
 
     // Обработка выхода из приложения.
