@@ -2,10 +2,18 @@
 
 GameUnit::GameUnit(QWidget *parent) : QWidget(parent) {
 
+    // Аы сделал бекграунд черным.
     setStyleSheet("background-color:black;");
+
+    // Аы поставил минимальное разрешение.
     setMinimumSize(1280,640);
 
+
+    // ну чисто загрузил текстуры.
     loadTexture();
+
+    //Отрисовал..... Появились сомнения насчет работы этой функции.....
+    doDraw();
 }
 
 
@@ -60,8 +68,10 @@ void GameUnit::loadTexture() {
 //Функция рисования карты.
 void GameUnit::doDraw() {
 
+    // Объект на котором мы рисуем то, что мы рисуем.(после он отображается на основном виджете)
     QPainter gamePaint(this);
 
+    // Индексы для пробега по карте прорисовки.
     int indexX;
     int indexY;
 
