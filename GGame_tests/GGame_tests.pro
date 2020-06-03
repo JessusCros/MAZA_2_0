@@ -43,4 +43,4 @@ DISTFILES += \
     C:/Users/Александр Косенков/Desktop/ezgif-6-341d506745ec-png-68x68-sprite-png.zip
 
 RESOURCES += \
-    Images.qrc
+    Image.qrc
