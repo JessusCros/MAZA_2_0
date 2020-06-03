@@ -37,6 +37,11 @@ private:
 
     // Массив спарйтов.
     QImage imageWallmass[60];
+    QImage imageStanding[12];
+    QImage imageGoingUp[12];
+    QImage imageGoingDown[12];
+    QImage imageGoingLeft[8];
+    QImage imageGoingRight[8];
 
     bool fullScreenPointer = true;
     void keyPressEvent(QKeyEvent *event);
