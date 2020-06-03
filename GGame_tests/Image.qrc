@@ -54,5 +54,57 @@
         <file>UpWalls/tile52.png</file>
         <file>UpWalls/tile53.png</file>
         <file>UpWalls/tile54.png</file>
+        <file>Character/Down/0.png</file>
+        <file>Character/Down/1.png</file>
+        <file>Character/Down/10.png</file>
+        <file>Character/Down/11.png</file>
+        <file>Character/Down/2.png</file>
+        <file>Character/Down/3.png</file>
+        <file>Character/Down/4.png</file>
+        <file>Character/Down/5.png</file>
+        <file>Character/Down/6.png</file>
+        <file>Character/Down/7.png</file>
+        <file>Character/Down/8.png</file>
+        <file>Character/Down/9.png</file>
+        <file>Character/Left/0.png</file>
+        <file>Character/Left/1.png</file>
+        <file>Character/Left/2.png</file>
+        <file>Character/Left/3.png</file>
+        <file>Character/Left/4.png</file>
+        <file>Character/Left/5.png</file>
+        <file>Character/Left/6.png</file>
+        <file>Character/Left/7.png</file>
+        <file>Character/Right/0.png</file>
+        <file>Character/Right/1.png</file>
+        <file>Character/Right/2.png</file>
+        <file>Character/Right/3.png</file>
+        <file>Character/Right/4.png</file>
+        <file>Character/Right/5.png</file>
+        <file>Character/Right/6.png</file>
+        <file>Character/Right/7.png</file>
+        <file>Character/Standing/0.png</file>
+        <file>Character/Standing/1.png</file>
+        <file>Character/Standing/10.png</file>
+        <file>Character/Standing/11.png</file>
+        <file>Character/Standing/2.png</file>
+        <file>Character/Standing/3.png</file>
+        <file>Character/Standing/4.png</file>
+        <file>Character/Standing/5.png</file>
+        <file>Character/Standing/6.png</file>
+        <file>Character/Standing/7.png</file>
+        <file>Character/Standing/8.png</file>
+        <file>Character/Standing/9.png</file>
+        <file>Character/Up/0.png</file>
+        <file>Character/Up/1.png</file>
+        <file>Character/Up/10.png</file>
+        <file>Character/Up/11.png</file>
+        <file>Character/Up/2.png</file>
+        <file>Character/Up/3.png</file>
+        <file>Character/Up/4.png</file>
+        <file>Character/Up/5.png</file>
+        <file>Character/Up/6.png</file>
+        <file>Character/Up/7.png</file>
+        <file>Character/Up/8.png</file>
+        <file>Character/Up/9.png</file>
     </qresource>
 </RCC>
