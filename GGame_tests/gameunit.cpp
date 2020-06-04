@@ -31,7 +31,7 @@ void GameUnit::initGame()
     /* Инициализируем персонажа */
     playerX = 9*64 + 18;
     playerY = 5*64 + 32;
-    direction = "Standing";
+    direction = "L";
     current_picture = 0;
 
     timerId = startTimer(DELAY);
