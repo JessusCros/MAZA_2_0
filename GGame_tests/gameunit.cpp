@@ -637,15 +637,15 @@ bool GameUnit::noCollision(int x, int y, QString direction)
     {
         return 0;
     }
-    else if (direction == "D" && gameColMap[(y+3)/64 + 1][(x+18)/64 + 1] == 1)
+    elif (direction == "D" && gameColMap[(y+3)/64 + 1][(x+18)/64 + 1] == 1)
     {
         return 0;
     }
-    else if (direction == "L" && gameColMap[y/64 + 1][(x-3)/64 + 1] == 1)
+    elif (direction == "L" && gameColMap[y/64 + 1][(x-3)/64 + 1] == 1)
     {
         return 0;
     }
-    else if (direction == "R" && gameColMap[y/64 + 1][(x+33)/64 + 1] == 1) //+33
+    elif (direction == "R" && gameColMap[y/64 + 1][(x+33)/64 + 1] == 1) //+33
     {
         return 0;
     }

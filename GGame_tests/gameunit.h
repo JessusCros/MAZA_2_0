@@ -11,6 +11,7 @@
 #define DM gameColMap[index+1][indey]
 #define DR gameColMap[index+1][indey+1]
 #define ER 1
+#define elif else if
 
 
 #include <QWidget>
