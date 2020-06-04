@@ -24,10 +24,6 @@ GameUnit::GameUnit(QWidget *parent) : QWidget(parent) {
     doTextures();
 
     initGame();
-
-    QSound Dungeon("/Music/Cave.wav");
-
-    Dungeon.play();
 }
 
 void GameUnit::initGame()
@@ -128,7 +124,7 @@ void GameUnit::doDrawChest() {
     for (indexX = 1; indexX < gameColMap.size()-1; ++indexX) {
         for (indexY = 1; indexY < gameColMap[indexX].size()-1; ++indexY) {
             if (gameColMap[indexX][indexY] == 2) {
-                gamePaint.drawImage((indexY-1) * PONUNIT + 18, (indexX-1) * PONUNIT + 45, imageWallmass[55]);
+                gamePaint.drawImage((indexY-1) * PONUNIT + 18, (indexX-1) * PONUNIT + 18, imageWallmass[55]);
             }
         }
     }

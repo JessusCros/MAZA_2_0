@@ -262,10 +262,8 @@ Makefile: ../GGame_tests/GGame_tests.pro ../../../QtCreator/5.14.2/mingw73_64/mk
 		../../../QtCreator/5.14.2/mingw73_64/mkspecs/features/yacc.prf \
 		../../../QtCreator/5.14.2/mingw73_64/mkspecs/features/lex.prf \
 		../GGame_tests/GGame_tests.pro \
-		../../../QtCreator/5.14.2/mingw73_64/lib/Qt5Multimedia.prl \
 		../../../QtCreator/5.14.2/mingw73_64/lib/Qt5Widgets.prl \
 		../../../QtCreator/5.14.2/mingw73_64/lib/Qt5Gui.prl \
-		../../../QtCreator/5.14.2/mingw73_64/lib/Qt5Network.prl \
 		../../../QtCreator/5.14.2/mingw73_64/lib/Qt5Core.prl \
 		../../../QtCreator/5.14.2/mingw73_64/lib/qtmain.prl \
 		../../../QtCreator/5.14.2/mingw73_64/mkspecs/features/build_pass.prf \
@@ -463,10 +461,8 @@ Makefile: ../GGame_tests/GGame_tests.pro ../../../QtCreator/5.14.2/mingw73_64/mk
 ../../../QtCreator/5.14.2/mingw73_64/mkspecs/features/yacc.prf:
 ../../../QtCreator/5.14.2/mingw73_64/mkspecs/features/lex.prf:
 ../GGame_tests/GGame_tests.pro:
-../../../QtCreator/5.14.2/mingw73_64/lib/Qt5Multimedia.prl:
 ../../../QtCreator/5.14.2/mingw73_64/lib/Qt5Widgets.prl:
 ../../../QtCreator/5.14.2/mingw73_64/lib/Qt5Gui.prl:
-../../../QtCreator/5.14.2/mingw73_64/lib/Qt5Network.prl:
 ../../../QtCreator/5.14.2/mingw73_64/lib/Qt5Core.prl:
 ../../../QtCreator/5.14.2/mingw73_64/lib/qtmain.prl:
 ../../../QtCreator/5.14.2/mingw73_64/mkspecs/features/build_pass.prf:
