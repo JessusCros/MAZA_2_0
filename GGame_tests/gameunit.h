@@ -20,6 +20,8 @@
 #include <QImage>
 #include <QPainter>
 #include <QDebug>
+#include <QTime>
+#include <QIcon>
 #include <QString>
 
 using ull = unsigned long long;
