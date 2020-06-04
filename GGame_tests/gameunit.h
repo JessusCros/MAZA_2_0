@@ -138,6 +138,8 @@ private:
 
     // Функция проверки коллизии
     bool noCollision(int x, int y, QString direction);
+
+    bool hereChest(int x, int y);
 };
 
 #endif // GAMEUNIT_H

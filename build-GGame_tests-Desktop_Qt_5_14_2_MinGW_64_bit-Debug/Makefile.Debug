@@ -125,6 +125,7 @@ compiler_rcc_clean:
 	-$(DEL_FILE) debug\qrc_Image.cpp
 debug/qrc_Image.cpp: ../GGame_tests/Image.qrc \
 		../../../Qt/5.14.2/mingw73_64/bin/rcc.exe \
+		../GGame_tests/Icon/Chest.png \
 		../GGame_tests/UpWalls/tile22.png \
 		../GGame_tests/UpWalls/tile47.png \
 		../GGame_tests/UpWalls/tile9.png \
@@ -358,6 +359,12 @@ debug/moc_gameunit.cpp: ../GGame_tests/gameunit.h \
 		../../../Qt/5.14.2/mingw73_64/include/QtGui/qpen.h \
 		../../../Qt/5.14.2/mingw73_64/include/QtCore/QDebug \
 		../../../Qt/5.14.2/mingw73_64/include/QtCore/QString \
+		../../../Qt/5.14.2/mingw73_64/include/QtCore/QTime \
+		../../../Qt/5.14.2/mingw73_64/include/QtCore/qdatetime.h \
+		../../../Qt/5.14.2/mingw73_64/include/QtGui/QIcon \
+		../../../Qt/5.14.2/mingw73_64/include/QtGui/qicon.h \
+		../../../Qt/5.14.2/mingw73_64/include/QtCore/QRandomGenerator \
+		../../../Qt/5.14.2/mingw73_64/include/QtCore/qrandom.h \
 		debug/moc_predefs.h \
 		../../../Qt/5.14.2/mingw73_64/bin/moc.exe
 	C:\Qt\5.14.2\mingw73_64\bin\moc.exe $(DEFINES) --include C:/Qt_projects/MAZA_2_0/build-GGame_tests-Desktop_Qt_5_14_2_MinGW_64_bit-Debug/debug/moc_predefs.h -IC:/Qt/5.14.2/mingw73_64/mkspecs/win32-g++ -IC:/Qt_projects/MAZA_2_0/GGame_tests -IC:/Qt/5.14.2/mingw73_64/include -IC:/Qt/5.14.2/mingw73_64/include/QtWidgets -IC:/Qt/5.14.2/mingw73_64/include/QtGui -IC:/Qt/5.14.2/mingw73_64/include/QtANGLE -IC:/Qt/5.14.2/mingw73_64/include/QtCore -I. -ID:/Alexandr_pack/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -ID:/Alexandr_pack/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -ID:/Alexandr_pack/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -ID:/Alexandr_pack/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -ID:/Alexandr_pack/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -ID:/Alexandr_pack/Tools/mingw730_64/x86_64-w64-mingw32/include ..\GGame_tests\gameunit.h -o debug\moc_gameunit.cpp
@@ -497,6 +504,8 @@ debug/gameunit.o: ../GGame_tests/gameunit.cpp ../GGame_tests/gameunit.h \
 		../../../Qt/5.14.2/mingw73_64/include/QtCore/QString \
 		../../../Qt/5.14.2/mingw73_64/include/QtCore/QTime \
 		../../../Qt/5.14.2/mingw73_64/include/QtCore/qdatetime.h \
+		../../../Qt/5.14.2/mingw73_64/include/QtGui/QIcon \
+		../../../Qt/5.14.2/mingw73_64/include/QtGui/qicon.h \
 		../../../Qt/5.14.2/mingw73_64/include/QtCore/QRandomGenerator \
 		../../../Qt/5.14.2/mingw73_64/include/QtCore/qrandom.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\gameunit.o ..\GGame_tests\gameunit.cpp
@@ -616,6 +625,12 @@ debug/main.o: ../GGame_tests/main.cpp ../GGame_tests/gameunit.h \
 		../../../Qt/5.14.2/mingw73_64/include/QtGui/qpen.h \
 		../../../Qt/5.14.2/mingw73_64/include/QtCore/QDebug \
 		../../../Qt/5.14.2/mingw73_64/include/QtCore/QString \
+		../../../Qt/5.14.2/mingw73_64/include/QtCore/QTime \
+		../../../Qt/5.14.2/mingw73_64/include/QtCore/qdatetime.h \
+		../../../Qt/5.14.2/mingw73_64/include/QtGui/QIcon \
+		../../../Qt/5.14.2/mingw73_64/include/QtGui/qicon.h \
+		../../../Qt/5.14.2/mingw73_64/include/QtCore/QRandomGenerator \
+		../../../Qt/5.14.2/mingw73_64/include/QtCore/qrandom.h \
 		../../../Qt/5.14.2/mingw73_64/include/QtWidgets/QApplication \
 		../../../Qt/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.14.2/mingw73_64/include/QtCore/qcoreapplication.h \

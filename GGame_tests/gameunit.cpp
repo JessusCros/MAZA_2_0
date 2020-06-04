@@ -627,30 +627,31 @@ void GameUnit::keyPressEvent(QKeyEvent *event) {
        (current_picture + 1 <= 7) ? current_picture += 1: current_picture = 0;
     }
 
+    if (hereChest(playerX, playerY))
+    {
+        chestsRemain--;
+        gameColMap[1+playerY/64][1+playerX/64] = 0;
+    }
+
     QWidget::keyPressEvent(event);
 }
 
 // Функция проверки на коллизию со стеной
 bool GameUnit::noCollision(int x, int y, QString direction)
 {
-       if   (direction == "U" && gameColMap[(y-3)/64 + 1][(x+18)/64 + 1] == 1) //-40
-    {
+       if   (direction == "U" && gameColMap[(y-3)/64 + 1][(x+18)/64 + 1] == 1) { //-40
         return 0;
     }
-    elif (direction == "D" && gameColMap[(y+3)/64 + 1][(x+18)/64 + 1] == 1)
-    {
+    elif (direction == "D" && gameColMap[(y+3)/64 + 1][(x+18)/64 + 1] == 1) {
         return 0;
     }
-    elif (direction == "L" && gameColMap[y/64 + 1][(x-3)/64 + 1] == 1)
-    {
+    elif (direction == "L" && gameColMap[y/64 + 1][(x-3)/64 + 1] == 1) {
         return 0;
     }
-    elif (direction == "R" && gameColMap[y/64 + 1][(x+33)/64 + 1] == 1) //+33
-    {
+    elif (direction == "R" && gameColMap[y/64 + 1][(x+33)/64 + 1] == 1) { //+33
         return 0;
     }
-    else
-    {
+    else {
         return 1;
     }
 }
@@ -682,4 +683,12 @@ void GameUnit::setChests()
             }
         }
     }
+}
+
+bool GameUnit::hereChest(int x, int y)
+{
+    if (gameColMap[1+y/64][1+x/64] == 2)
+        return 1;
+    else
+        return 0;
 }
