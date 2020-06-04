@@ -496,7 +496,9 @@ debug/gameunit.o: ../GGame_tests/gameunit.cpp ../GGame_tests/gameunit.h \
 		../../../Qt/5.14.2/mingw73_64/include/QtCore/QDebug \
 		../../../Qt/5.14.2/mingw73_64/include/QtCore/QString \
 		../../../Qt/5.14.2/mingw73_64/include/QtCore/QTime \
-		../../../Qt/5.14.2/mingw73_64/include/QtCore/qdatetime.h
+		../../../Qt/5.14.2/mingw73_64/include/QtCore/qdatetime.h \
+		../../../Qt/5.14.2/mingw73_64/include/QtCore/QRandomGenerator \
+		../../../Qt/5.14.2/mingw73_64/include/QtCore/qrandom.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\gameunit.o ..\GGame_tests\gameunit.cpp
 
 debug/main.o: ../GGame_tests/main.cpp ../GGame_tests/gameunit.h \

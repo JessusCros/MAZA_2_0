@@ -86,10 +86,8 @@ void GameUnit::timerEvent(QTimerEvent *e)
 
     Q_UNUSED(e);
 
-    if (inGame)
-    {
-
-    }
+    if (chestsRemain == 0)
+        close();
 
     repaint();
 }
@@ -194,25 +192,27 @@ void GameUnit::doDrawPlayer()
 {
     QPainter gamePaint (this);
 
+    const int add = 28;
+
     if (direction == "U")
     {
         //qDebug() << direction << current_picture;
-        gamePaint.drawImage(playerX, playerY, imageUp[current_picture]);
+        gamePaint.drawImage(playerX, playerY + add, imageUp[current_picture]);
     }
     else if (direction == "D")
     {
         //qDebug() << direction << current_picture;
-        gamePaint.drawImage(playerX, playerY, imageDown[current_picture]);
+        gamePaint.drawImage(playerX, playerY + add, imageDown[current_picture]);
     }
     else if (direction == "L")
     {
         //qDebug() << direction << current_picture;
-        gamePaint.drawImage(playerX, playerY, imageLeft[current_picture]);
+        gamePaint.drawImage(playerX, playerY + add, imageLeft[current_picture]);
     }
     else if (direction == "R")
     {
         //qDebug() << direction << current_picture;
-        gamePaint.drawImage(playerX, playerY, imageRight[current_picture]);
+        gamePaint.drawImage(playerX, playerY + add, imageRight[current_picture]);
     }
 }
 
@@ -585,7 +585,7 @@ void GameUnit::keyPressEvent(QKeyEvent *event) {
     {
         direction = "U";
         // Проверяем коллизию
-        //if (noCollision(playerX, playerY, "U"))
+        if (noCollision(playerX, playerY, "U"))
             playerY -= 3;
 
         //qDebug() << playerY;
@@ -597,7 +597,7 @@ void GameUnit::keyPressEvent(QKeyEvent *event) {
     {
         direction = "D";
         // Проверяем коллизию
-        //if (noCollision(playerX, playerY, "D"))
+        if (noCollision(playerX, playerY, "D"))
             playerY += 3;
 
         //qDebug() << playerY;
@@ -609,7 +609,7 @@ void GameUnit::keyPressEvent(QKeyEvent *event) {
     {
         direction = "L";
         // Проверяем коллизию
-        //if (noCollision(playerX, playerY, "L"))
+        if (noCollision(playerX, playerY, "L"))
             playerX -= 3;
 
         //qDebug() << playerX;
@@ -621,7 +621,7 @@ void GameUnit::keyPressEvent(QKeyEvent *event) {
     {
         direction = "R";
         // Проверяем коллизию
-        //if (noCollision(playerX, playerY, "R"))
+        if (noCollision(playerX, playerY, "R"))
             playerX += 3;
 
         //qDebug() << playerX;
@@ -634,31 +634,24 @@ void GameUnit::keyPressEvent(QKeyEvent *event) {
 // Функция проверки на коллизию со стеной
 bool GameUnit::noCollision(int x, int y, QString direction)
 {
-       if   (direction == "U" && gameColMap[(y-2)/64][x/64] == 1)
+       if   (direction == "U" && gameColMap[(y-3)/64 + 1][(x+18)/64 + 1] == 1) //-40
     {
-        qDebug() << "x = " << x/64;
-        qDebug() << "y = " << y/64;
         return 0;
     }
-    else if (direction == "D" && gameColMap[(y+2)/64][x/64] == 1)
+    else if (direction == "D" && gameColMap[(y+3)/64 + 1][(x+18)/64 + 1] == 1)
     {
-
         return 0;
     }
-    else if (direction == "L" && gameColMap[y/64][(x-2)/64] == 1)
+    else if (direction == "L" && gameColMap[y/64 + 1][(x-3)/64 + 1] == 1)
     {
-
         return 0;
     }
-    else if (direction == "R" && gameColMap[y/64][(x+2)/64] == 1)
+    else if (direction == "R" && gameColMap[y/64 + 1][(x+33)/64 + 1] == 1) //+33
     {
-
         return 0;
     }
     else
     {
-        qDebug() << "x = " << x/64;
-        qDebug() << "y = " << y/64;
         return 1;
     }
 }
@@ -684,7 +677,6 @@ void GameUnit::setChests()
                 if (r >= 9500)
                 {
                     chestsRemain++;
-                    qDebug() << "chests on the map: " << chestsRemain;
                     gameColMap[i][j] = 2;
 
                 }
