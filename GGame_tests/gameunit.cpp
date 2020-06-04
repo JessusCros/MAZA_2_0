@@ -25,10 +25,9 @@ GameUnit::GameUnit(QWidget *parent) : QWidget(parent) {
     initGame();
 }
 
+/* Функция, инициализирующая игру */
 void GameUnit::initGame()
 {
-    inGame = true;
-
     /* Инициализируем персонажа */
     playerX = 9*64 + 18;
     playerY = 5*64;
@@ -36,13 +35,15 @@ void GameUnit::initGame()
     direction = "L";
     current_picture = 0;
 
+    /* На карте нет сундуков, поэтому их надо расставить */
     chestsRemain = 0;
     setChests();
 
+    /* Запускаем таймер */
     timerId = startTimer(DELAY);
 }
 
-// Функция обработки события рисования на виджете.
+/* Функция обработки события рисования на виджете */
 void GameUnit::paintEvent(QPaintEvent *pEvent) {
     Q_UNUSED(pEvent);
 
@@ -55,7 +56,7 @@ void GameUnit::paintEvent(QPaintEvent *pEvent) {
     doDrawWall();
 }
 
-// Функция предзагрузки текстур.
+/* Функция предзагрузки текстур */
 void GameUnit::loadTexture() {
 
     // Забиваем текстуры.
@@ -80,18 +81,21 @@ void GameUnit::loadTexture() {
         imageRight[i].load(":/Character/Right/" + QString::number(i));
 }
 
+/* Таймер, нужный для формирования игрового цикла */
 void GameUnit::timerEvent(QTimerEvent *e)
 {
 
     Q_UNUSED(e);
 
+    /* Если не осталось на карте сундуков, то игра закончена */
     if (chestsRemain == 0)
         close();
 
+    /* Перерисовываем экран */
     repaint();
 }
 
-// Функция рисование пола.
+/* Функция рисование пола */
 void GameUnit::doDrawFloor() {
 
     // Объект на котором мы рисуем то, что мы рисуем.(после он отображается на основном виджете)
@@ -111,7 +115,7 @@ void GameUnit::doDrawFloor() {
     }
 }
 
-// Функция отрисовки сундука.
+/* Функция отрисовки сундука */
 void GameUnit::doDrawChest() {
 
     // Объект на котором мы рисуем то, что мы рисуем.(после он отображается на основном виджете)
@@ -131,7 +135,7 @@ void GameUnit::doDrawChest() {
     }
 }
 
-// Функция рисования стен.
+/* Функция рисования стен */
 void GameUnit::doDrawSideWall() {
 
     // Объект на котором мы рисуем то, что мы рисуем.(после он отображается на основном виджете)
@@ -151,7 +155,7 @@ void GameUnit::doDrawSideWall() {
     }
 }
 
-// Функция рисования стен.
+/* Функция рисования стен */
 void GameUnit::doDrawWall() {
 
     // Объект на котором мы рисуем то, что мы рисуем.(после он отображается на основном виджете)
@@ -171,7 +175,7 @@ void GameUnit::doDrawWall() {
     }
 }
 
-// Функция обработки текстур.
+/* Функция обработки текстур */
 void GameUnit::doTextures() {
 
     int index;
@@ -186,37 +190,38 @@ void GameUnit::doTextures() {
     }
 }
 
-// Функция отрисовки персонажа
+/* Функция отрисовки персонажа */
 void GameUnit::doDrawPlayer()
 {
     QPainter gamePaint (this);
 
-    const int add = 28;
+    /* Отрисовываем ниже */
+    const int add = 24;
 
     if (direction == "U")
     {
-        //qDebug() << direction << current_picture;
+        /* Отрисовываем */
         gamePaint.drawImage(playerX, playerY + add, imageUp[current_picture]);
     }
     else if (direction == "D")
     {
-        //qDebug() << direction << current_picture;
+        /* Отрисовываем */
         gamePaint.drawImage(playerX, playerY + add, imageDown[current_picture]);
     }
     else if (direction == "L")
     {
-        //qDebug() << direction << current_picture;
+        /* Отрисовываем */
         gamePaint.drawImage(playerX, playerY + add, imageLeft[current_picture]);
     }
     else if (direction == "R")
     {
-        //qDebug() << direction << current_picture;
+        /* Отрисовываем */
         gamePaint.drawImage(playerX, playerY + add, imageRight[current_picture]);
     }
 }
 
-// Функция обработки положения стен.
-// ВНИМАНИЕ. Не для слабонервных.
+/* Функция обработки положения стен */
+/* ВНИМАНИЕ. Не для слабонервных */
 void GameUnit::ifElse(int index, int indey) {
 
 
@@ -571,7 +576,7 @@ void GameUnit::ifElse(int index, int indey) {
     }
 }
 
-// Обработчик клавиатуры.
+/* Обработчик клавиатуры */
 void GameUnit::keyPressEvent(QKeyEvent *event) {
 
     // Обработка выхода из приложения.
@@ -579,56 +584,66 @@ void GameUnit::keyPressEvent(QKeyEvent *event) {
         close();
     }
 
-    // Если идём вверх
+    /* Если идём вверх */
     if (event->key() == Qt::Key_W || event->key() == Qt::Key_Up)
     {
+        /* Меняем направление движения */
         direction = "U";
-        // Проверяем коллизию
+
+        /* Проверяем коллизию */
         if (noCollision(playerX, playerY, "U"))
             playerY -= 3;
 
-        //qDebug() << playerY;
+        /* Переходим к следующей картинки из массива для анимации */
         (current_picture + 1 <= 11) ? current_picture += 1: current_picture = 0;
     }
 
-    // Если идём вниз
+    /* Если идём вниз */
     if (event->key() == Qt::Key_S || event->key() == Qt::Key_Down)
     {
+        /* Меняем направление движения */
         direction = "D";
-        // Проверяем коллизию
+
+        /* Проверяем коллизию */
         if (noCollision(playerX, playerY, "D"))
             playerY += 3;
 
-        //qDebug() << playerY;
+        /* Переходим к следующей картинки из массива для анимации */
         (current_picture + 1 <= 11) ? current_picture += 1: current_picture = 0;
     }
 
-    // Если идём влево
+    /* Если идём влево */
     if (event->key() == Qt::Key_A || event->key() == Qt::Key_Left)
     {
+        /* Меняем направление движения */
         direction = "L";
-        // Проверяем коллизию
+
+        /* Проверяем коллизию */
         if (noCollision(playerX, playerY, "L"))
             playerX -= 3;
 
-        //qDebug() << playerX;
+        /* Переходим к следующей картинки из массива для анимации */
         (current_picture + 1 <= 7) ? current_picture += 1: current_picture = 0;
     }
 
-    // Если идём вправо
+    /* Если идём вправо */
     if (event->key() == Qt::Key_D || event->key() == Qt::Key_Right)
     {
+        /* Меняем направление движения */
         direction = "R";
-        // Проверяем коллизию
+
+        /* Проверяем коллизию */
         if (noCollision(playerX, playerY, "R"))
             playerX += 3;
 
-        //qDebug() << playerX;
-       (current_picture + 1 <= 7) ? current_picture += 1: current_picture = 0;
+       /* Переходим к следующей картинки из массива для анимации */
+        (current_picture + 1 <= 7) ? current_picture += 1: current_picture = 0;
     }
 
+    /* Проверяем, стоит ли персонаж в клетке, где находится сундук */
     if (hereChest(playerX, playerY))
     {
+        /* Удаляем сундук и уменьшаем их количество на карте */
         chestsRemain--;
         gameColMap[1+playerY/64][1+playerX/64] = 0;
     }
@@ -636,46 +651,57 @@ void GameUnit::keyPressEvent(QKeyEvent *event) {
     QWidget::keyPressEvent(event);
 }
 
-// Функция проверки на коллизию со стеной
+/* Функция проверки на коллизию со стеной */
 bool GameUnit::noCollision(int x, int y, QString direction)
 {
-       if   (direction == "U" && gameColMap[(y-3)/64 + 1][(x+18)/64 + 1] == 1) { //-40
+    /* Если сверху стена */
+    if (direction == "U" && (gameColMap[(y-3)/64 + 1][(x)/64 + 1] == 1 || gameColMap[(y-3)/64 + 1][(x+30)/64 + 1] == 1)) {
         return 0;
     }
-    elif (direction == "D" && gameColMap[(y+3)/64 + 1][(x+18)/64 + 1] == 1) {
+    /* Если снизу стена */
+    elif (direction == "D" && (gameColMap[(y+3)/64 + 1][(x)/64 + 1] == 1 || gameColMap[(y+3)/64 + 1][(x+30)/64 + 1] == 1)) {
         return 0;
     }
+    /* Если слева стена */
     elif (direction == "L" && gameColMap[y/64 + 1][(x-3)/64 + 1] == 1) {
         return 0;
     }
-    elif (direction == "R" && gameColMap[y/64 + 1][(x+33)/64 + 1] == 1) { //+33
+    /* Если справа стена */
+    elif (direction == "R" && gameColMap[y/64 + 1][(x+33)/64 + 1] == 1) {
         return 0;
     }
+    /* Иначе - нет стены в направлении движения */
     else {
         return 1;
     }
 }
 
+/* Функция, расставляющая сундуки на карте */
 void GameUnit::setChests()
 {
+    /* Нужно расставить 5 сундуков */
     while (chestsRemain != 5)
     {
         for (int i = 1; i <= gameColMap.size()-2; i++)
         {
             for (int j = 1; j <= gameColMap[i].size()-2; j++)
             {
+                /* Если место не свободно, то оно нам не подходит */
                 if (gameColMap[i][j] != 0)
                     continue;
 
+                /* Если уже расставлено 5 сундуков, то выходим */
                 if (chestsRemain == 5)
                     break;
 
+                /* Формируем рандомное число в диапазоне [0; 9999] */
                 std::uniform_int_distribution <int> distribution(0, 10000);
                 int r = distribution(*QRandomGenerator::global());
-                qDebug() << r;
 
+                /* С небольшим шансом выпадет число >= 9500 */
                 if (r >= 9500)
                 {
+                    /* Ставим сундук */
                     chestsRemain++;
                     gameColMap[i][j] = 2;
 
@@ -685,8 +711,10 @@ void GameUnit::setChests()
     }
 }
 
+/* Функция проверки сундука в данной клетке 64х64 */
 bool GameUnit::hereChest(int x, int y)
 {
+    /* Если сундук есть, то возвращает 1, иначе - 0 */
     if (gameColMap[1+y/64][1+x/64] == 2)
         return 1;
     else
