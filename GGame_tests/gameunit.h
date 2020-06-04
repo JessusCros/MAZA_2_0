@@ -20,6 +20,7 @@
 #include <QImage>
 #include <QPainter>
 #include <QDebug>
+#include <QString>
 
 using ull = unsigned long long;
 
@@ -47,7 +48,7 @@ public:
         {1,1,0,1,0,1,0,1,0,1,0,1,0,1,1,1,0,1,1,1,1,1},
         {1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
         {1,1,1,0,1,1,0,1,0,1,1,1,0,1,0,1,1,1,1,0,1,1},
-        {1,1,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+        {1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
     };
@@ -76,6 +77,23 @@ private:
     // Просто массив для хранениения текстурок карты.
     QImage imageWallmass[60];
 
+    // Картинки для анимации движений
+    QImage imageUp[12];
+    QImage imageDown[12];
+    QImage imageLeft[8];
+    QImage imageRight[8];
+    QImage imageStanding[12];
+
+    // Координаты и направление движения игрока
+    int playerX;
+    int playerY;
+    QString direction;
+    int current_picture;
+
+    bool inGame;
+    int timerId;
+    const int DELAY = 17;
+
     // Переменная для хранения параметра экрана.(типо не полный экран или полный, по умолчанию не полный)
     bool fullScreenPointer = true;
 
@@ -89,6 +107,9 @@ private:
     // Функция загрузки текстур в массив картинок.
     void loadTexture();
 
+    void initGame();
+    void timerEvent(QTimerEvent *e);
+
     // Функция отрисовки карты.
     void doDrawWall();
 
@@ -98,9 +119,26 @@ private:
     // Функция сама отрисовывающая карту.
     void doTextures();
 
+    // Функция отрисовки стоящего персонажа
+    void doDrawPlayer();
+
+    // Функция отрисовки персонажа, идущего вверх
+    void doDrawPlayerUp();
+
+    // Функция отрисовки персонажа, идущего вниз
+    void doDrawPlayerDown();
+
+    // Функция отрисовки персонажа, идущего влево
+    void doDrawPlayerLeft();
+
+    // Функция отрисовки персонажа, идущего вправо
+    void doDrawPlayerRight();
 
     // Функция проверки вероятных расположений.
     void ifElse(int index, int indey);
+
+    // Функция проверки коллизии
+    bool noCollision(int x, int y, QString direction);
 };
 
 #endif // GAMEUNIT_H

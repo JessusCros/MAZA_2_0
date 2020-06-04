@@ -1,4 +1,8 @@
 #include "gameunit.h"
+#include <QString>
+#include <QTime>
+#include <QPainter>
+#include <conio.h>
 
 GameUnit::GameUnit(QWidget *parent) : QWidget(parent) {
 
@@ -15,24 +19,30 @@ GameUnit::GameUnit(QWidget *parent) : QWidget(parent) {
     loadTexture();
 
     doTextures();
+
+    initGame();
 }
 
 
-// Обработчик клавиатуры.
-void GameUnit::keyPressEvent(QKeyEvent *event) {
+void GameUnit::initGame()
+{
+    inGame = true;
 
-    // Обработка выхода из приложения.
-    if (event->key() == Qt::Key_Escape) {
-        close();
-    }
+    /* Инициализируем персонажа */
+    playerX = 9*64 + 18;
+    playerY = 5*64 + 32;
+    direction = "Standing";
+    current_picture = 0;
+
+    timerId = startTimer(DELAY);
 }
 
-// Функция обработки событи рисования на виджете.
+// Функция обработки события рисования на виджете.
 void GameUnit::paintEvent(QPaintEvent *pEvent) {
     Q_UNUSED(pEvent);
 
     doDrawFloor();
-
+    doDrawPlayer();
     doDrawWall();
 }
 
@@ -43,6 +53,35 @@ void GameUnit::loadTexture() {
     for (int i = 1; i <= 54; ++i) {
         imageWallmass[i].load(":/UpWalls/tile" + QString::number(i));
     }
+
+    // Загружаем картинки для анимации движения вверх
+    for (int i = 0; i <= 11; i++)
+        imageUp[i].load(":/Character/Up/" + QString::number(i));
+
+    // Загружаем картинки для анимации движения вниз
+    for (int i = 0; i <= 11; i++)
+        imageDown[i].load(":/Character/Down/" + QString::number(i));
+
+    // Загружаем картинки для анимации движения влево
+    for (int i = 0; i <= 7; i++)
+        imageLeft[i].load(":/Character/Left/" + QString::number(i));
+
+    // Загружаем картинки для анимации движения вправо
+    for (int i = 0; i <= 7; i++)
+        imageRight[i].load(":/Character/Right/" + QString::number(i));
+}
+
+void GameUnit::timerEvent(QTimerEvent *e)
+{
+
+    Q_UNUSED(e);
+
+    if (inGame)
+    {
+
+    }
+
+    repaint();
 }
 
 // Функция рисование пола.
@@ -65,6 +104,7 @@ void GameUnit::doDrawFloor() {
     }
 
 }
+
 // Функция рисования стен.
 void GameUnit::doDrawWall() {
 
@@ -99,6 +139,33 @@ void GameUnit::doTextures() {
         }
     }
 
+}
+
+// Функция отрисовки персонажа
+void GameUnit::doDrawPlayer()
+{
+    QPainter gamePaint (this);
+
+    if (direction == "U")
+    {
+        //qDebug() << direction << current_picture;
+        gamePaint.drawImage(playerX, playerY, imageUp[current_picture]);
+    }
+    else if (direction == "D")
+    {
+        //qDebug() << direction << current_picture;
+        gamePaint.drawImage(playerX, playerY, imageDown[current_picture]);
+    }
+    else if (direction == "L")
+    {
+        //qDebug() << direction << current_picture;
+        gamePaint.drawImage(playerX, playerY, imageLeft[current_picture]);
+    }
+    else if (direction == "R")
+    {
+        //qDebug() << direction << current_picture;
+        gamePaint.drawImage(playerX, playerY, imageRight[current_picture]);
+    }
 }
 
 // Функция обработки положения стен.
@@ -446,5 +513,96 @@ void GameUnit::ifElse(int index, int indey) {
             ( ML == 0) && (MM == 1) && (MR == 1) &&
             ( DL == DL) && (DM == 1) && (DR == 0)) {
         gameMap[index][indey] = 47;
+    }
+}
+
+// Обработчик клавиатуры.
+void GameUnit::keyPressEvent(QKeyEvent *event) {
+
+    // Обработка выхода из приложения.
+    if (event->key() == Qt::Key_Escape) {
+        close();
+    }
+
+    // Если идём вверх
+    if (event->key() == Qt::Key_W || event->key() == Qt::Key_Up)
+    {
+        direction = "U";
+        // Проверяем коллизию
+        //if (noCollision(playerX, playerY, "U"))
+            playerY -= 3;
+
+        //qDebug() << playerY;
+        (current_picture + 1 <= 11) ? current_picture += 1: current_picture = 0;
+    }
+
+    // Если идём вниз
+    if (event->key() == Qt::Key_S || event->key() == Qt::Key_Down)
+    {
+        direction = "D";
+        // Проверяем коллизию
+        //if (noCollision(playerX, playerY, "D"))
+            playerY += 3;
+
+        //qDebug() << playerY;
+        (current_picture + 1 <= 11) ? current_picture += 1: current_picture = 0;
+    }
+
+    // Если идём влево
+    if (event->key() == Qt::Key_A || event->key() == Qt::Key_Left)
+    {
+        direction = "L";
+        // Проверяем коллизию
+        //if (noCollision(playerX, playerY, "L"))
+            playerX -= 3;
+
+        //qDebug() << playerX;
+        (current_picture + 1 <= 7) ? current_picture += 1: current_picture = 0;
+    }
+
+    // Если идём вправо
+    if (event->key() == Qt::Key_D || event->key() == Qt::Key_Right)
+    {
+        direction = "R";
+        // Проверяем коллизию
+        //if (noCollision(playerX, playerY, "R"))
+            playerX += 3;
+
+        //qDebug() << playerX;
+       (current_picture + 1 <= 7) ? current_picture += 1: current_picture = 0;
+    }
+
+    QWidget::keyPressEvent(event);
+}
+
+// Функция проверки на коллизию со стеной
+bool GameUnit::noCollision(int x, int y, QString direction)
+{
+       if   (direction == "U" && gameColMap[(y-2)/64][x/64] == 1)
+    {
+        qDebug() << "x = " << x/64;
+        qDebug() << "y = " << y/64;
+        return 0;
+    }
+    else if (direction == "D" && gameColMap[(y+2)/64][x/64] == 1)
+    {
+
+        return 0;
+    }
+    else if (direction == "L" && gameColMap[y/64][(x-2)/64] == 1)
+    {
+
+        return 0;
+    }
+    else if (direction == "R" && gameColMap[y/64][(x+2)/64] == 1)
+    {
+
+        return 0;
+    }
+    else
+    {
+        qDebug() << "x = " << x/64;
+        qDebug() << "y = " << y/64;
+        return 1;
     }
 }
