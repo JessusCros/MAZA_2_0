@@ -106,5 +106,6 @@
         <file>Character/Up/7.png</file>
         <file>Character/Up/8.png</file>
         <file>Character/Up/9.png</file>
+        <file>UpWalls/tile55.png</file>
     </qresource>
 </RCC>

@@ -8,7 +8,6 @@ int main(int argc, char *argv[])
 
     GameUnit ggame;
 
-    ggame.setWindowTitle("Chest Hunter");
     ggame.show();
 
     return a.exec();
