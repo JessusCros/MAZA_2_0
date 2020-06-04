@@ -1,13 +1,12 @@
 #include "gameunit.h"
-#include <QString>
-#include <QTime>
-#include <QPainter>
-#include <QRandomGenerator>
 
 GameUnit::GameUnit(QWidget *parent) : QWidget(parent) {
 
     // Установили название виджета.
     setWindowTitle("Chest Hunter");
+
+    // Установли иконку.......Аы.
+    setWindowIcon(QIcon(":/Icon/Chest"));
 
     // Аы сделал бекграунд черным.
     setStyleSheet("background-color:black;");

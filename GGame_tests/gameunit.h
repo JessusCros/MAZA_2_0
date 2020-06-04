@@ -21,6 +21,9 @@
 #include <QPainter>
 #include <QDebug>
 #include <QString>
+#include <QTime>
+#include <QIcon>
+#include <QRandomGenerator>
 
 using ull = unsigned long long;
 
