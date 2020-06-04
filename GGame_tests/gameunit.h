@@ -82,7 +82,6 @@ private:
     QImage imageDown[12];
     QImage imageLeft[8];
     QImage imageRight[8];
-    QImage imageStanding[12];
 
     // Координаты и направление движения игрока
     int playerX;
@@ -92,10 +91,7 @@ private:
 
     bool inGame;
     int timerId;
-    const int DELAY = 17;
-
-    // Переменная для хранения параметра экрана.(типо не полный экран или полный, по умолчанию не полный)
-    bool fullScreenPointer = true;
+    const int DELAY = 7;
 
     // Событие обработчик значений с клавиатуры.
     void keyPressEvent(QKeyEvent *event);
@@ -116,23 +112,11 @@ private:
     //Функция отрисовки пола.
     void doDrawFloor();
 
-    // Функция сама отрисовывающая карту.
-    void doTextures();
-
     // Функция отрисовки стоящего персонажа
     void doDrawPlayer();
 
-    // Функция отрисовки персонажа, идущего вверх
-    void doDrawPlayerUp();
-
-    // Функция отрисовки персонажа, идущего вниз
-    void doDrawPlayerDown();
-
-    // Функция отрисовки персонажа, идущего влево
-    void doDrawPlayerLeft();
-
-    // Функция отрисовки персонажа, идущего вправо
-    void doDrawPlayerRight();
+    // Функция сама отрисовывающая карту.
+    void doTextures();
 
     // Функция проверки вероятных расположений.
     void ifElse(int index, int indey);
