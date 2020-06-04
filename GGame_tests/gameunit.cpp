@@ -2,7 +2,7 @@
 #include <QString>
 #include <QTime>
 #include <QPainter>
-#include <conio.h>
+#include <QRandomGenerator>
 
 GameUnit::GameUnit(QWidget *parent) : QWidget(parent) {
 
@@ -32,9 +32,13 @@ void GameUnit::initGame()
 
     /* Инициализируем персонажа */
     playerX = 9*64 + 18;
-    playerY = 5*64 + 32;
+    playerY = 5*64;
+
     direction = "L";
     current_picture = 0;
+
+    chestsRemain = 0;
+    setChests();
 
     timerId = startTimer(DELAY);
 }
@@ -124,7 +128,7 @@ void GameUnit::doDrawChest() {
     for (indexX = 1; indexX < gameColMap.size()-1; ++indexX) {
         for (indexY = 1; indexY < gameColMap[indexX].size()-1; ++indexY) {
             if (gameColMap[indexX][indexY] == 2) {
-                gamePaint.drawImage((indexY-1) * PONUNIT + 18, (indexX-1) * PONUNIT + 18, imageWallmass[55]);
+                gamePaint.drawImage((indexY-1) * PONUNIT + 18, (indexX-1) * PONUNIT + 45, imageWallmass[55]);
             }
         }
     }
@@ -656,5 +660,35 @@ bool GameUnit::noCollision(int x, int y, QString direction)
         qDebug() << "x = " << x/64;
         qDebug() << "y = " << y/64;
         return 1;
+    }
+}
+
+void GameUnit::setChests()
+{
+    while (chestsRemain != 5)
+    {
+        for (int i = 1; i <= gameColMap.size()-2; i++)
+        {
+            for (int j = 1; j <= gameColMap[i].size()-2; j++)
+            {
+                if (gameColMap[i][j] != 0)
+                    continue;
+
+                if (chestsRemain == 5)
+                    break;
+
+                std::uniform_int_distribution <int> distribution(0, 10000);
+                int r = distribution(*QRandomGenerator::global());
+                qDebug() << r;
+
+                if (r >= 9500)
+                {
+                    chestsRemain++;
+                    qDebug() << "chests on the map: " << chestsRemain;
+                    gameColMap[i][j] = 2;
+
+                }
+            }
+        }
     }
 }
