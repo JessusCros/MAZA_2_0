@@ -47,13 +47,24 @@ void GameUnit::initGame()
 void GameUnit::paintEvent(QPaintEvent *pEvent) {
     Q_UNUSED(pEvent);
 
+    /* Рисуем пол */
     doDrawFloor();
 
+    /* Рисуем сундуки */
     doDrawChest();
 
+    /* Рисуем игрока */
     doDrawPlayer();
 
+    /* Рисуем стены */
     doDrawWall();
+
+    /* Если не осталось на карте сундуков, то игра закончена */
+    if (chestsRemain == 0)
+    {
+        /* Рисуем текст окончания игры */
+        doDrawEndText();
+    }
 }
 
 /* Функция предзагрузки текстур */
@@ -86,10 +97,6 @@ void GameUnit::timerEvent(QTimerEvent *e)
 {
 
     Q_UNUSED(e);
-
-    /* Если не осталось на карте сундуков, то игра закончена */
-    if (chestsRemain == 0)
-        close();
 
     /* Перерисовываем экран */
     repaint();
@@ -719,4 +726,28 @@ bool GameUnit::hereChest(int x, int y)
         return 1;
     else
         return 0;
+}
+
+/* Функция показа текста завершения игры */
+void GameUnit::doDrawEndText()
+{
+    QPainter gamePaint(this);
+
+    /* Сообщение, которое выведем */
+    QString message = "You have collected all of the chests!";
+
+    /* Задаём шрифт */
+    QFont font("Impact", 15, QFont::DemiBold);
+    QFontMetrics fm(font);
+    int textWidth = fm.horizontalAdvance(message);
+
+    /* Задаём цвет */
+    gamePaint.setPen(QColor("#BCBCBC"));
+    gamePaint.setFont(font);
+
+    /* Рисуем в выбранной позиции */
+    int h = height();
+    int w = width();
+    gamePaint.translate(QPoint(w/2, h/2));
+    gamePaint.drawText(-textWidth/2, 0, message);
 }

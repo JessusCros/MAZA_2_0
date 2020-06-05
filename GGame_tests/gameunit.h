@@ -145,6 +145,9 @@ private:
 
     /* Функция проверки сундука в данной клетке 64х64 */
     bool hereChest(int x, int y);
+
+    /* Функция показа текста завершения игры */
+    void doDrawEndText();
 };
 
 #endif // GAMEUNIT_H
